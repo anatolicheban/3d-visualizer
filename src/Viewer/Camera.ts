@@ -14,7 +14,7 @@ export class Camera {
 
   constructor() {
     //Instance
-    this.instance.position.set(-1, 1, 5);
+    this.instance.position.set(-1, 1, 1);
     this.viewer.scene.add(this.instance);
 
     //Controls

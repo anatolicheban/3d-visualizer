@@ -15,7 +15,7 @@ export class Renderer {
   constructor() {
     document.body.appendChild(this.stats.dom);
 
-    this.instance.setClearColor(0x223843);
+    this.instance.setClearColor("#c2f0ff");
     this.instance.setSize(this.viewer.sizes.width, this.viewer.sizes.height);
     this.instance.setPixelRatio(this.viewer.sizes.pixelRatio);
   }
