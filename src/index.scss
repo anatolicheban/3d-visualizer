@@ -1,11 +1,24 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
 html,
-body {
+body,
+#root {
   height: 100%;
   width: 100%;
 }
 
 body {
   margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+input,
+button {
+  font-family: Montserrat, sans-serif;
 }
 
 #viewer,
@@ -22,4 +35,46 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+ul,
+ol {
+  padding-inline: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+img {
+  display: block;
+  object-position: center;
+  object-fit: contain;
+}
+
+#root {
+  display: flex;
 }

@@ -14,13 +14,14 @@ export class Camera {
 
   constructor() {
     //Instance
-    this.instance.position.set(-1, 1, 1);
+    this.instance.position.set(-1, 1.5, 3);
     this.viewer.scene.add(this.instance);
 
     //Controls
     this.controls.enableDamping = true;
     this.controls.minDistance = 0.5;
     this.controls.maxDistance = 10;
+    this.controls.target.set(0, 0.4, 0);
   }
 
   resize() {

@@ -1,6 +1,6 @@
 import { Viewer } from "./index.ts";
 import { WebGLRenderer } from "three";
-import Stats from "three/examples/jsm/libs/stats.module.js";
+// import Stats from "three/examples/jsm/libs/stats.module.js";
 
 export class Renderer {
   private viewer = new Viewer();
@@ -10,10 +10,10 @@ export class Renderer {
     antialias: true, // Включение антиалиасинга для сглаживания краев объектов
     // alpha: true, // Включение прозрачности (если требуется)
   });
-  private stats = new Stats();
+  // private stats = new Stats();
 
   constructor() {
-    document.body.appendChild(this.stats.dom);
+    // document.body.appendChild(this.stats.dom);
 
     this.instance.setClearColor("#c2f0ff");
     this.instance.setSize(this.viewer.sizes.width, this.viewer.sizes.height);
@@ -26,6 +26,6 @@ export class Renderer {
 
   update() {
     this.instance.render(this.viewer.scene, this.viewer.camera.instance);
-    this.stats.update();
+    // this.stats.update();
   }
 }
