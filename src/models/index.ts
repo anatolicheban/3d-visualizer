@@ -10,6 +10,7 @@ export type ColumnData = {
   value: number;
   color: string;
   cell: Mesh | null;
+  // col: Group;
   coords: Coords;
 };
 

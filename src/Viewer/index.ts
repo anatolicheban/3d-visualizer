@@ -37,6 +37,7 @@ export class Viewer {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     instance = this;
 
     //Utils
@@ -49,9 +50,9 @@ export class Viewer {
 
     //Setup
     this.scene = new Scene();
-    this.camera = new Camera();
     this.renderer = new Renderer();
     this.world = new World();
+    this.camera = new Camera();
 
     this.setListeners();
 

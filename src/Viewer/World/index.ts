@@ -6,7 +6,7 @@ import { Board } from "./Board.ts";
 export const CELL_SIZE = 0.18;
 export const CELL_HEIGHT = 0.005;
 export const CELLS_GAP = 0.02;
-export const MAX_COL_HEIGHT = 2;
+export const MAX_COL_HEIGHT = 1;
 
 export class World {
   private viewer = new Viewer();

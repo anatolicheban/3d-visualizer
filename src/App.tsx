@@ -30,6 +30,8 @@ function App() {
     cell: null,
   });
 
+  const [selected, setSelected] = useState<null | MeshColumnData>(null);
+
   useEffect(() => {
     const listener = viewer?.world.board.addColumn.on((e) => {
       setColumnData((prev) => ({ ...prev, coords: e.coords, cell: e.mesh }));
@@ -41,21 +43,31 @@ function App() {
   const columnInfoSubmit = () => {
     if (!columnData.cell) return;
 
+    if (selected) {
+      const data = {
+        ...selected,
+        color: columnData.color,
+        value: columnData.value,
+        title: columnData.title,
+      };
+
+      setColumns((prev) => prev.map((el) => (el === selected ? data : el)));
+      setSelected(null);
+      viewer?.world.board.editCol(data);
+      return;
+    }
+
     const column = new Group();
 
     const mesh = new Mesh(
-      new BoxGeometry(
-        CELL_SIZE - CELLS_GAP / 2,
-        0.5,
-        CELL_SIZE - CELLS_GAP / 2,
-      ),
+      new BoxGeometry(CELL_SIZE - CELLS_GAP / 2, 1, CELL_SIZE - CELLS_GAP / 2),
       new MeshStandardMaterial({
         color: columnData.color,
       }),
     );
     mesh.userData.isColumn = true;
 
-    mesh.position.y += 0.25;
+    mesh.position.y += 0.5;
     column.add(mesh);
 
     setColumns((prev) => [...prev, { ...columnData, column }]);
@@ -76,13 +88,37 @@ function App() {
     setInfoOpen(false);
   };
 
+  const deleteHandler = (item: MeshColumnData) => {
+    setColumns((prev) => prev.filter((el) => el !== item));
+    viewer?.world.board.deleteCol(item.column);
+  };
+
+  const editHandler = (item: MeshColumnData) => {
+    setColumnData(item);
+    setInfoOpen(true);
+  };
+
+  useEffect(() => {
+    if (!selected) setInfoOpen(false);
+  }, [selected]);
+
   return (
     <>
-      <DataList items={columns} />
+      <DataList
+        onSelect={(el) => {
+          setInfoOpen(false);
+          setSelected((prev) => (prev === el ? null : el));
+        }}
+        items={columns}
+        selected={selected}
+        onEdit={editHandler}
+        onDelete={deleteHandler}
+      />
       <div id="viewer-wrap">
         <canvas id="viewer"></canvas>
       </div>
       <ColumnInfo
+        selected={selected}
         open={infoOpen}
         onClose={() => {
           viewer?.world.board.clearHovers(true);

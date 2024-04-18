@@ -2,7 +2,7 @@ import "./style.scss";
 import { FC, FormEvent, useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import cn from "classnames";
-import { ColumnData } from "../../models";
+import { ColumnData, MeshColumnData } from "../../models";
 
 type Props = {
   open: boolean;
@@ -10,6 +10,7 @@ type Props = {
   onSubmit(): void;
   data: ColumnData;
   onDataChange(prop: keyof ColumnData, value: number | string): void;
+  selected: MeshColumnData | null;
 };
 export const ColumnInfo: FC<Props> = ({
   open,
@@ -17,6 +18,7 @@ export const ColumnInfo: FC<Props> = ({
   onSubmit,
   data,
   onDataChange,
+  selected,
 }) => {
   const [colorOpen, setColorOpen] = useState(false);
   const formSubmitHandler = (e: FormEvent) => {
@@ -38,7 +40,7 @@ export const ColumnInfo: FC<Props> = ({
     <div className={cn("column-info", open && "open")}>
       <header>
         <h2>
-          Add column ({data.coords.x}:{data.coords.y})
+          {selected ? "Edit" : "Add"} column ({data.coords.x}:{data.coords.y})
         </h2>
         <button onClick={onClose}>
           <img src="/close.svg" alt="close" />
@@ -76,7 +78,7 @@ export const ColumnInfo: FC<Props> = ({
           )}
         </label>
         <button disabled={!btnActive} type={"submit"}>
-          Add
+          {selected ? "Save" : "Add"}
         </button>
       </form>
     </div>

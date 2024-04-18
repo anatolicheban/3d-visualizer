@@ -1,5 +1,5 @@
 import { Viewer } from "./index.ts";
-import { PerspectiveCamera } from "three";
+import { Mesh, PerspectiveCamera } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export class Camera {
@@ -11,7 +11,7 @@ export class Camera {
     100,
   );
   controls = new OrbitControls(this.instance, this.viewer.canvas);
-
+  lettersToUpdate: Mesh[] = [];
   constructor() {
     //Instance
     this.instance.position.set(-1, 1.5, 3);
@@ -22,6 +22,18 @@ export class Camera {
     this.controls.minDistance = 0.5;
     this.controls.maxDistance = 10;
     this.controls.target.set(0, 0.4, 0);
+
+    this.updateLetters();
+
+    this.controls.addEventListener("change", () => {
+      this.updateLetters();
+    });
+  }
+
+  updateLetters() {
+    this.lettersToUpdate.forEach((el) =>
+      el.lookAt(this.controls.object.position),
+    );
   }
 
   resize() {
