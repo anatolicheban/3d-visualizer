@@ -337,9 +337,16 @@ export class Board {
   updateColumns() {
     this.maxValue = Math.max(...this.columns.map((el) => el.value));
     this.columns.forEach((el) => {
-      gsap.to([el.col.scale, el.text.position], {
+      gsap.to(el.col.scale, {
         y: (el.value / this.maxValue) * MAX_COL_HEIGHT,
         duration: 1,
+      });
+      gsap.to(el.text.position, {
+        y: (el.value / this.maxValue) * MAX_COL_HEIGHT,
+        duration: 1,
+        onUpdate: () => {
+          el.text.lookAt(this.viewer.camera.instance.position);
+        },
       });
     });
   }

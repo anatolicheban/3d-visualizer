@@ -34,7 +34,13 @@ function App() {
 
   useEffect(() => {
     const listener = viewer?.world.board.addColumn.on((e) => {
-      setColumnData((prev) => ({ ...prev, coords: e.coords, cell: e.mesh }));
+      setColumnData((prev) => ({
+        ...prev,
+        value: 0,
+        title: "",
+        coords: e.coords,
+        cell: e.mesh,
+      }));
       setInfoOpen(true);
     });
     return () => listener && listener.dispose();
